@@ -4,6 +4,8 @@ FROM python:3.9-slim
 # Встановлюємо залежності системи
 RUN apt-get update && apt-get install -y \
     bash \
+    jq \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Встановлюємо робочу директорію всередині контейнера
