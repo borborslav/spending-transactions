@@ -9,5 +9,8 @@ services:
       - .:/app  # Монтую поточну директорію на контейнер
     environment:
       FLASK_ENV: development  # Вказуємо Flask працювати в режимі розробки
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nginx-files.rule=Host(`lili.borukh.net`)"
     restart: always  # Автоматичний перезапуск, якщо контейнер зупиняється
 
