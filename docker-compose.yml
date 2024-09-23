@@ -1,16 +1,22 @@
-version: '3.8'
+version: '3'
 
 services:
   flask_app:
     build: .
-    ports:
-      - "5000:5000"  # Проброс порту для доступу ззовні
+      #  ports:
+      #   - "5000:5000"  # Проброс порту для доступу ззовні
     volumes:
       - .:/app  # Монтую поточну директорію на контейнер
     environment:
       FLASK_ENV: development  # Вказуємо Flask працювати в режимі розробки
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nginx-files.rule=Host(`lili.borukh.net`)"
+      - "traefik.http.routers.lili.rule=Host(`lili.borukh.net`)"
+      - "traefik.http.services.lili.loadbalancer.server.port=5000"
     restart: always  # Автоматичний перезапуск, якщо контейнер зупиняється
+
+networks:
+  default:
+    name: proxynet
+    external: true
 
